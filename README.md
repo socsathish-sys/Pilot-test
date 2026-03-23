@@ -140,3 +140,24 @@ print("Screenshot saved at:", screenshot_path)
 # ==========================
 
 driver.quit()
+
+
+###------------Test------
+
+from selenium import webdriver
+from selenium.webdriver.edge.service import Service
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+
+# Setup Edge driver automatically
+service = Service(EdgeChromiumDriverManager().install())
+
+# Launch Edge browser
+driver = webdriver.Edge(service=service)
+
+# Open website
+driver.get("https://example.com")
+
+print("Edge browser opened successfully")
+
+# Close browser
+# driver.quit()
