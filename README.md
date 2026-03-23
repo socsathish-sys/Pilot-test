@@ -43,3 +43,37 @@ for link in links:
 print("All downloads completed")
 
 driver.quit()
+
+
+#--------Screenshot--------------
+from selenium import webdriver
+from selenium.webdriver.edge.service import Service
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
+import time
+import os
+
+# Folder to save screenshots
+screenshot_folder = r"C:\Users\Sathish\Downloads\TestScreenshots"
+os.makedirs(screenshot_folder, exist_ok=True)
+
+# Edge options
+options = webdriver.EdgeOptions()
+
+# Launch Edge browser
+driver = webdriver.Edge(service=Service(EdgeChromiumDriverManager().install()), options=options)
+
+# Open website
+driver.get("https://the-internet.herokuapp.com/download")
+
+# wait for page to load
+time.sleep(3)
+
+# Screenshot file path
+screenshot_path = os.path.join(screenshot_folder, "website_screenshot.png")
+
+# Take screenshot
+driver.save_screenshot(screenshot_path)
+
+print("Screenshot saved at:", screenshot_path)
+
+driver.quit()
