@@ -77,3 +77,66 @@ driver.save_screenshot(screenshot_path)
 print("Screenshot saved at:", screenshot_path)
 
 driver.quit()
+
+#--------------with Proxy----------
+
+from selenium import webdriver
+from selenium.webdriver.edge.service import Service
+from selenium.webdriver.edge.options import Options
+import os
+import time
+
+# ==========================
+# PROXY CONFIGURATION
+# ==========================
+
+proxy = "http://proxy.company.com:8080"   # change to your proxy
+
+os.environ['HTTP_PROXY'] = proxy
+os.environ['HTTPS_PROXY'] = proxy
+
+# ==========================
+# SCREENSHOT FOLDER
+# ==========================
+
+screenshot_folder = os.path.join(os.getcwd(), "screenshots")
+os.makedirs(screenshot_folder, exist_ok=True)
+
+# ==========================
+# EDGE OPTIONS
+# ==========================
+
+edge_options = Options()
+edge_options.add_argument(f'--proxy-server={proxy}')
+
+# ==========================
+# START EDGE BROWSER
+# ==========================
+
+driver = webdriver.Edge(options=edge_options)
+
+# ==========================
+# OPEN WEBSITE
+# ==========================
+
+driver.get("https://the-internet.herokuapp.com/download")
+
+time.sleep(3)
+
+driver.maximize_window()
+
+# ==========================
+# TAKE SCREENSHOT
+# ==========================
+
+screenshot_path = os.path.join(screenshot_folder, "website_screenshot.png")
+
+driver.save_screenshot(screenshot_path)
+
+print("Screenshot saved at:", screenshot_path)
+
+# ==========================
+# CLOSE BROWSER
+# ==========================
+
+driver.quit()
