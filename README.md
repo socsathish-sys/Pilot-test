@@ -146,18 +146,24 @@ driver.quit()
 
 from selenium import webdriver
 from selenium.webdriver.edge.service import Service
+from selenium.webdriver.edge.options import Options
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
+
+# Zscaler proxy configuration
+proxy = "http://proxy.company.com:8080"   # Replace with your Zscaler proxy
+
+edge_options = Options()
+edge_options.add_argument(f'--proxy-server={proxy}')
 
 # Setup Edge driver automatically
 service = Service(EdgeChromiumDriverManager().install())
 
-# Launch Edge browser
-driver = webdriver.Edge(service=service)
+# Launch browser with proxy
+driver = webdriver.Edge(service=service, options=edge_options)
 
 # Open website
 driver.get("https://example.com")
 
-print("Edge browser opened successfully")
+print("Edge opened through Zscaler proxy")
 
-# Close browser
-# driver.quit()
+driver.quit()
